@@ -20,6 +20,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     logs.vm.network :private_network, ip: "192.168.9.90"
 
     logs.vm.provision :ansible do |ansible|
+      ansible.raw_arguments = ['--private-key=~/.vagrant.d/insecure_private_key']
+      ansible.raw_ssh_args = ['-o ControlMaster=no']
       ansible.playbook = "provisioning/elk/playbook.yml"
       ansible.inventory_path = "provisioning/elk/inventory"
       ansible.sudo = true
@@ -32,6 +34,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     webs.vm.network :private_network, ip: "192.168.9.91"
 
     webs.vm.provision :ansible do |ansible|
+      ansible.raw_arguments = ['--private-key=~/.vagrant.d/insecure_private_key']
+      ansible.raw_ssh_args = ['-o ControlMaster=no']
       ansible.playbook = "provisioning/web/playbook.yml"
       ansible.inventory_path = "provisioning/web/inventory"
       ansible.sudo = true
