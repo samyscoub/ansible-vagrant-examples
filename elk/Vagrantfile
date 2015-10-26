@@ -3,6 +3,10 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+unless Vagrant.has_plugin?("vagrant-host-shell")
+  raise 'vagrant-host-shell plugin is not installed! Please install it first'
+end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "geerlingguy/ubuntu1404"
   config.ssh.insert_key = false
@@ -12,6 +16,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.cpus = 2
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
+
+  config.vm.provision :host_shell do |host_shell|
+    host_shell.inline = "ansible-galaxy -r requirements.yml -p roles install"
   end
 
   # ELK server.
