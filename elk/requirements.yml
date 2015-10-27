@@ -3,6 +3,7 @@
 - src: geerlingguy.nginx
 - src: geerlingguy.elasticsearch
 - src: geerlingguy.elasticsearch-curator
-- src: geerlingguy.kibana
+- src: https://github.com/samyscoub/ansible-role-kibana.git
+  name: geerlingguy.kibana
 - src: geerlingguy.logstash
 - src: geerlingguy.logstash-forwarder
