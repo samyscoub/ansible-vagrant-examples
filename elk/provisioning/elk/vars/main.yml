@@ -10,6 +10,11 @@ kibana_server_name: logs
 kibana_username: kibana
 kibana_password: password
 
+#kibana_version: 4.1.2
+#kibana_package: kibana-{{ kibana_version }}-linux-x64.tar.gz
+#kibana_root: /var/www/kibana4
+
+
 logstash_monitor_local_syslog: false
 logstash_ssl_key_file: elk-vagrant-example.key
 logstash_ssl_certificate_file: elk-vagrant-example.crt
