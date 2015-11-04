@@ -11,12 +11,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "geerlingguy/ubuntu1404"
   config.ssh.insert_key = false
 
-  config.vm.provider :virtualbox do |v|
-    v.memory = 1024
-    v.cpus = 2
-    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    v.customize ["modifyvm", :id, "--ioapic", "on"]
-  end
+  #config.vm.provider :virtualbox do |v|
+  #  v.memory = 1024
+  #  v.cpus = 2
+  #  v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  #  v.customize ["modifyvm", :id, "--ioapic", "on"]
+  #end
 
 
   config.vm.provision :host_shell do |host_shell|
@@ -27,6 +27,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "logs" do |logs|
     logs.vm.hostname = "logs"
     logs.vm.network :private_network, ip: "192.168.9.90"
+
+    logs.vm.provider :virtualbox do |vb|
+    	vb.memory = 1024
+    	vb.cpus = 2
+    	vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    	vb.customize ["modifyvm", :id, "--ioapic", "on"]
+    end
 
     logs.vm.provision :ansible do |ansible|
       ansible.raw_arguments = ['--private-key=~/.vagrant.d/insecure_private_key']
@@ -41,6 +48,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "webs" do |webs|
     webs.vm.hostname = "webs"
     webs.vm.network :private_network, ip: "192.168.9.91"
+
+    webs.vm.provider :virtualbox do |vb|
+    	vb.memory = 512
+    	vb.cpus = 1
+    	vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    	vb.customize ["modifyvm", :id, "--ioapic", "on"]
+     end
+
 
     webs.vm.provision :ansible do |ansible|
       ansible.raw_arguments = ['--private-key=~/.vagrant.d/insecure_private_key']
